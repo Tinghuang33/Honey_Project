@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthProvider } from "@/components/AuthContext";
 import Footer from "@/components/Footer";
-import NavbarAdmin from "@/components/Navbar-admin";
-
+import Navbar from "@/components/Navbar";
 
 // 定義用戶角色類型
 type UserRole = "user" | "inspector" | "admin";
@@ -51,8 +50,8 @@ const RoleControl: React.FC = () => {
 
   return (
     <AuthProvider>
-      <div className="min-h-screen flex flex-col">
-        <NavbarAdmin />
+      <div className="min-h-screen flex flex-col"> 
+        <Navbar mode="admin" />
         <main className="bg-gray-100 flex-1 p-6">
           <div className="bg-green-50 py-24 sm:py-32 relative overflow-hidden">
             <motion.div

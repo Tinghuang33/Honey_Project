@@ -14,6 +14,7 @@ interface ApplyForm {
   capacity: number;
   detection_time: string;
   apply_time: string;
+  pay: boolean;
 }
 
 const Apply_cancel = () => {
@@ -135,12 +136,15 @@ const Apply_cancel = () => {
                               >
                                 取消申請
                               </button>
-                              <button
-                                className="bg-blue-500 hover:bg-blue-400 text-white px-3 py-1 rounded ml-2"
-                                onClick={() => handlePayment(form.apply_id)}
-                              >
-                                去付款
-                              </button>
+                              {form.pay === false && (
+                                <button
+                                    className="bg-blue-500 hover:bg-blue-400 text-white px-3 py-1 rounded ml-2"
+                                    onClick={() => handlePayment(form.apply_id)}
+                                >
+                                    去付款
+                                </button>
+                              )}
+
                             </td>
                           </tr>
                         ))}

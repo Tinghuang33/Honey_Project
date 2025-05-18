@@ -29,6 +29,8 @@ const Payment = () => {
 
     const [paymentDetail, setPaymentDetail] = useState<PaymentDetail | null>(null);
     const [message, setMessage] = useState("");
+    const [paymentSuccess, setPaymentSuccess] = useState(false);
+
 
     const fetchPayment = async (apply_id: string, token: string) => {
         try {
@@ -66,6 +68,28 @@ const Payment = () => {
         }
     }, [apply_id]);
 
+    const handlePayment = async () => {
+        if (!apply_id) {
+            setMessage("❌ 申請 ID 無效，請重新嘗試");
+            return;
+        }
+        try {
+            const response = await axiosInstance.post(`/pay/${apply_id}`, {
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (response.status === 200) {
+                setPaymentSuccess(true);
+            } else {
+                setMessage("❌ 付款失敗，請稍後再試");
+            }
+        } catch (error) {
+            console.error("❌ 付款 API 失敗", error);
+            setMessage("❌ 付款 API 失敗，請檢查網路或稍後再試！");
+        }
+    };
+
+
     return (
         <AuthProvider>
             <div className="min-h-screen flex flex-col">
@@ -93,6 +117,17 @@ const Payment = () => {
                             <p className="mt-4 text-red-600 font-semibold">
                                 ※ 請於 {paymentDetail?.paymentDeadline} 內完成轉帳付款至上述帳號。
                             </p>
+                            {paymentSuccess ? (
+                                <div className="p-4 mt-4 bg-green-100 text-green-700 rounded">
+                                    🎉 付款成功！您的檢測申請已確認。
+                                </div>
+                            ) : (
+                                <button 
+                                    onClick={handlePayment}
+                                    className="mt-4 bg-green-500 hover:bg-green-400 text-white py-2 px-4 rounded">
+                                    付款
+                                </button>
+                            )}
                         </div>
                     </main>
                 </div>                
