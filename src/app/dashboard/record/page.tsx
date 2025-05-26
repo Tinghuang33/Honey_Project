@@ -26,10 +26,8 @@ interface LabelInfo {
   };
 }
 
-
 const Record = () => {
   const [records, setRecords] = useState<LabelInfo[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const formatTime = (dateString: string) => {
     // 將時間格式化為 zh-TW 的格式
@@ -60,21 +58,12 @@ const Record = () => {
       console.log("取得檢測紀錄成功！", data);
     } catch (error) {
       console.error("取得檢測紀錄失敗", error);
-  }};
+    }
+  };
   useEffect(() => {
     fetchRecords();
     console.log("目前的 Token:", localStorage.getItem("token"));
   }, []);
-
-
-  // 切換顯示詳細資訊
-  const handleToggleDetails = async (apply_id: string) => {
-    if (selectedId === apply_id) {
-      setSelectedId(null);
-    } else {
-      setSelectedId(apply_id);
-    }
-  };
 
   return (
     <AuthProvider>
@@ -101,53 +90,31 @@ const Record = () => {
                   <div className="mt-10 grid gap-6 bg-white shadow-lg rounded-xl border border-gray-300 p-6">
                     <h3 className="text-xl font-semibold text-amber-700">檢測紀錄</h3>
                     <table className="w-full text-amber-700">
-                    <thead>
-                      <tr className="bg-yellow-500">
-                        <th className="border p-2">申請編號</th>
-                        <th className="border p-2">公升數</th>
-                        <th className="border p-2">申請日期</th>
-                        <th className="border p-2">檢測日期</th>
-                        <th className="border p-2">檢測結果</th>
-                        <th className="border p-2">操作</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {records.map((record) => (
-                        <tr key={record.apply_form.apply_id} className="text-center">
-                          <td className="border p-2">{record.apply_form.apply_id}</td>
-                          <td className="border p-2">{record.apply_form.capacity}</td>
-                          <td className="border p-2">{record.apply_form.apply_time}</td>
-                          <td className="border p-2">{record.apply_form.detection_time}</td>
-                          <td className="border p-2">{record.result}</td>
-                          <td className="border p-2 space-x-2">
-                            <button
-                              className="text-orange-600 underline"
-                              onClick={() => handleToggleDetails(record.apply_form.apply_id)}
-                            >
-                              詳細 {selectedId === record.apply_form.apply_id ? "▲" : "▼"}
-                            </button>
-                          </td>
+                      <thead>
+                        <tr className="bg-yellow-500">
+                          <th className="border p-2">申請編號</th>
+                          <th className="border p-2">公升數</th>
+                          <th className="border p-2">申請日期</th>
+                          <th className="border p-2">檢測日期</th>
+                          <th className="border p-2">檢測結果</th>
+                          <th className="border p-2">標章編號</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  {selectedId && (
-                    <div className="mt-4 text-left bg-yellow-50 border p-4 rounded text-gray-700">
-                      {records
-                        .filter((r) => r.apply_form.apply_id === selectedId)
-                        .map((record) => (
-                          <div key={record.apply_form.apply_id}>
-                            <p><strong>蜂農姓名：</strong> {record.account.name}</p>
-                            <p><strong>電話：</strong> {record.account.phone}</p>
-                            <p><strong>蜂場名稱：</strong> {record.account.apiray_name}</p>
-                            <p><strong>蜂場地址：</strong> {record.account.apiray_address}</p>
-                            <p className="text-red-600">
-                              標章編號：{record.label_id_start}~{record.label_id_end}
-                            </p>
-                          </div>
+                      </thead>
+                      <tbody>
+                        {records.map((record) => (
+                          <tr key={record.apply_form.apply_id} className="text-center">
+                            <td className="border p-2">{record.apply_form.apply_id}</td>
+                            <td className="border p-2">{record.apply_form.capacity}</td>
+                            <td className="border p-2">{record.apply_form.apply_time}</td>
+                            <td className="border p-2">{record.apply_form.detection_time}</td>
+                            <td className="border p-2">{record.result}</td>
+                            <td className="border p-2 text-red-600">
+                              {record.label_id_start}~{record.label_id_end}
+                            </td>
+                          </tr>
                         ))}
-                    </div>
-                  )}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

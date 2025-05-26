@@ -32,7 +32,7 @@ const Payment = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
 
 
-    const fetchPayment = async (apply_id: string, token: string) => {
+    const fetchPayment = async (apply_id: string) => {
         try {
             const response = await axiosInstance.get(`/get_apply_form_byid/${apply_id}`, {
                 headers: { "Content-Type": "application/json" },
@@ -62,7 +62,7 @@ const Payment = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token && apply_id) {
-            fetchPayment(apply_id, token);
+            fetchPayment(apply_id);
         } else {
             setMessage("❌ Token 或 apply_id 不存在，請先登入！");
         }

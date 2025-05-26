@@ -33,13 +33,18 @@ export default function Login() {
         router.push("/"); // 導向app.tsx觸發處理
       } else {
         console.error("登入失敗！", response.data);
-        setMessage(response.data.detail || "登入失敗，請稍後再試。");
+        setMessage(response.data?.detail || "登入失敗，請稍後再試。");
       }
-    }catch (error) {
+    } catch (error) {
       console.error("連線錯誤，請確認伺服器狀態！", error);
+      const err = error as { response?: { data?: { detail?: string } }, message?: string };
+      const detail =
+        err?.response?.data?.detail ||
+        err?.message ||
+        "登入失敗，請稍後再試。";
+      setMessage(`登入失敗! ${detail}`);
     }
-  };
-
+}
   return (
     <AuthProvider>
       <div className="min-h-screen flex flex-col">

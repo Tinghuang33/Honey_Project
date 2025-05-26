@@ -12,9 +12,25 @@ import Sidebar from "@/components/Sidebar";
 const Apply = () => {
     const [form, setForm] = useState({ name: "", phone: "", apiray_name: "", apiray_address: "", capacity: "", detection_time: "" });
     const [message, setMessage] = useState("");
+    const [date, setDate] = useState(""); // 新增日期 state
+    const [period, setPeriod] = useState(""); // 新增時段 state
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        if (name === "capacity") {
+            setForm({ ...form, [name]: value });
+        }
+        // 其他欄位不變
+    };
+
+    // 日期與時段選擇
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDate(e.target.value);
+        setForm({ ...form, detection_time: e.target.value && period ? `${e.target.value} ${period}` : "" });
+    };
+    const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setPeriod(e.target.value);
+        setForm({ ...form, detection_time: date && e.target.value ? `${date} ${e.target.value}` : "" });
     };
 
     const fetchProfile = async (account: string) => {
@@ -46,6 +62,19 @@ const Apply = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setMessage("");
+        if (
+            !form.name?.trim() ||
+            !form.apiray_name?.trim() ||
+            !form.phone ||
+            !form.apiray_address?.trim()
+        ) {
+            setMessage("請先完成個人資料填寫!");
+            return;
+        }
+        if (!form.capacity?.trim() || !form.detection_time?.trim()) {
+            setMessage("請填寫欲檢測公升數和檢測日期與時段！");
+            return;
+        }
         const token = localStorage.getItem("token");
         try{
             const response = await axiosInstance.post(`/submit_apply/${token}`, form, {
@@ -108,14 +137,26 @@ const Apply = () => {
                                         value={form.capacity}
                                         onChange={handleChange}
                                         />
-                                        <input
-                                        type="date"
-                                        name="detection_time"
-                                        placeholder="欲檢測日期"
-                                        className="mt-2 w-full p-2 border rounded-lg text-gray-700"
-                                        value={form.detection_time}
-                                        onChange={handleChange}
-                                        />
+                                        <div className="flex gap-2 mt-2">
+                                            <input
+                                                type="date"
+                                                name="date"
+                                                className="w-1/2 p-2 border rounded-lg text-gray-700"
+                                                value={date}
+                                                onChange={handleDateChange}
+                                            />
+                                            <select
+                                                name="period"
+                                                className="w-1/2 p-2 border rounded-lg text-gray-700"
+                                                value={period}
+                                                onChange={handlePeriodChange}
+                                            >
+                                                <option value="">請選擇檢測時段</option>
+                                                <option value="09:00">09:00</option>
+                                                <option value="12:00">12:00</option>
+                                                <option value="15:00">15:00</option>
+                                            </select>
+                                        </div>
                                         <button className="mt-2 w-full bg-amber-600 hover:bg-amber-500 text-white p-2 rounded-lg"
                                         >送出</button>
                                         {message && <p className="text-red-600 mt-2">{message}</p>}

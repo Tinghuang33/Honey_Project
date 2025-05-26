@@ -28,8 +28,14 @@ export default function Register() {
       }else{
         setMessage(response.data.detail || "註冊失敗，請稍後再試。");  
       }
-    }catch (error) {
-      setMessage("連線錯誤，請確認伺服器狀態！");
+    } catch (error) {
+      console.error("連線錯誤，請確認伺服器狀態！", error);
+      const err = error as { response?: { data?: { detail?: string } }, message?: string };
+      const detail =
+        err?.response?.data?.detail ||
+        err?.message ||
+        "註冊失敗，請稍後再試。";
+      setMessage(`註冊失敗! ${detail}`);
     }
   };
 

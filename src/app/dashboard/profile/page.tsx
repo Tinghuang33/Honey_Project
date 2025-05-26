@@ -1,7 +1,7 @@
 "use client";
 
 import axiosInstance from "../../../utils/axiosConfig";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthProvider } from "@/components/AuthContext";
 import Navbar from "@/components/Navbar";
