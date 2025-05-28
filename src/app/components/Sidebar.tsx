@@ -18,8 +18,7 @@ const Sidebar = () => {
     { key: 'sub2', label: '-標章管理-', 
       children: [
         { name: '申請檢測', link: '/dashboard/apply' },
-        { name: '申請紀錄(待檢測)', link: '/dashboard/apply-cancel' },
-        { name: '檢測紀錄(已檢測)', link: '/dashboard/record' },
+        { name: '申請紀錄', link: '/dashboard/record' },
       ]
     },
   ];

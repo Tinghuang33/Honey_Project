@@ -1,7 +1,5 @@
 "use client";
 
-import axiosInstance from "../../utils/axiosConfig";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -9,22 +7,50 @@ import LabelQuery from "@/components/LabelQuery";
 
 export default function Bento() {
   const [quizStep, setQuizStep] = useState(0);
-  const [quizAnswer, setQuizAnswer] = useState("");
+  const [quizAnswers, setQuizAnswers] = useState<string[]>([]);
+  const [quizResult, setQuizResult] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
+  // 更有趣的小測驗題目
   const quizQuestions = [
-    { question: "你喜歡濃郁的蜂蜜風味嗎？", options: ["是的", "我喜歡淡一點"] },
-    { question: "你希望蜂蜜有助於哪方面？", options: ["舒緩喉嚨", "提升能量", "促進消化"] }
+    {
+      question: "你最想用蜂蜜搭配哪種食物？",
+      options: ["熱牛奶", "優格水果", "烤吐司", "直接吃一口"]
+    },
+    {
+      question: "你偏好的蜂蜜口感？",
+      options: ["濃稠厚重", "清爽流動", "細膩滑順", "結晶沙沙"]
+    },
+    {
+      question: "你通常什麼時候會吃蜂蜜？",
+      options: ["早晨提神", "下午茶點", "運動後補充", "睡前放鬆"]
+    }
   ];
-  const handleQuizAnswer = (answer: string) => {
-    if (quizStep === 0 && answer === "是的") setQuizAnswer("龍眼蜜");
-    else if (quizStep === 0 && answer === "我喜歡淡一點") setQuizAnswer("百花蜜");
-    else if (quizStep === 1 && answer === "舒緩喉嚨") setQuizAnswer("冬蜜");
-    else if (quizStep === 1 && answer === "提升能量") setQuizAnswer("荔枝蜜");
-    else setQuizAnswer("各類蜂蜜都適合你");
 
-    setQuizStep(quizStep + 1);
+  // 根據答案組合給出趣味推薦
+  const getQuizResult = (answers: string[]) => {
+    if (answers[0] === "熱牛奶" && answers[1] === "濃稠厚重")
+      return "推薦【龍眼蜜】——濃郁香氣，熱飲最佳拍檔！";
+    if (answers[0] === "優格水果" && answers[2] === "下午茶點")
+      return "推薦【百花蜜】——多層次花香，百搭下午茶！";
+    if (answers[1] === "結晶沙沙")
+      return "推薦【冬蜜】——結晶細緻，口感獨特！";
+    if (answers[2] === "運動後補充")
+      return "推薦【荔枝蜜】——甜度高，能量補給首選！";
+    if (answers[0] === "直接吃一口")
+      return "推薦【巢蜜】——原始風味，直接享受蜂巢的美好！";
+    return "各種蜂蜜都適合你，快去嘗試不同風味吧！";
+  };
+
+  const handleQuizAnswer = (answer: string) => {
+    const newAnswers = [...quizAnswers, answer];
+    setQuizAnswers(newAnswers);
+    if (quizStep < quizQuestions.length - 1) {
+      setQuizStep(quizStep + 1);
+    } else {
+      setQuizResult(getQuizResult(newAnswers));
+    }
   };
   
   // Modal ESC 關閉功能
@@ -69,10 +95,19 @@ export default function Bento() {
     },
     {
       title: "蜂蜜的保存方式？",
-      content: `(1) 儲存環境：陰涼乾燥，避免陽光與高溫。
+      content: `最佳保存方式：
+                (1) 儲存環境：陰涼乾燥，避免陽光與高溫。
                 (2) 避免水分：使用乾燥湯匙。
                 (3) 容器選擇：玻璃或食品級塑膠最佳。
                 (4) 結晶處理：可使用 40°C 溫水回溶。`
+    },
+    {
+      title: "蜂蜜的營養價值？",
+      content: `蜂蜜的營養價值：
+                蜂蜜含有多種維生素（如B群、C）、礦物質
+                （如鉀、鈣、鎂）、胺基酸與天然酵素。
+                天然蜂蜜還有抗氧化物，有助於提升免疫力
+                與促進消化。`
     }
   ];
 
@@ -116,10 +151,16 @@ export default function Bento() {
           {/* 蜂農故事 */}
           <div className="relative bg-white shadow-lg rounded-xl border border-gray-300 p-6">
             <h3 className="text-xl font-semibold text-amber-700 mb-4">蜂農故事</h3>
-            <Link href="/beekeeper-story/1">
-              <div className="cursor-pointer bg-gray-100 p-4 rounded-lg">
+            <Link href="/beekeeper-story/1" className="block mb-4">
+              <div className="cursor-pointer bg-gray-100 p-4 rounded-lg w-full">
                 <h4 className="text-lg font-medium text-amber-700">阿德的養蜂日常</h4>
                 <p className="mt-2 text-gray-600">來自台南的小農阿德，世代確保純真蜂蜜。</p>
+              </div>
+            </Link>
+            <Link href="/beekeeper-story/2" className="block">
+              <div className="cursor-pointer bg-gray-100 p-4 rounded-lg w-full">
+                <h4 className="text-lg font-medium text-amber-700">小芳的山林蜂園</h4>
+                <p className="mt-2 text-gray-600">小芳在南投山區與蜜蜂共舞，堅持自然養殖，守護生態。</p>
               </div>
             </Link>
           </div>
@@ -130,7 +171,7 @@ export default function Bento() {
           {/* 蜂蜜小測驗 */}
           <div className="relative bg-white shadow-lg rounded-xl border border-gray-300 p-6">
             <h3 className="text-xl font-semibold text-amber-700">蜂蜜小測驗</h3>
-            {quizStep < quizQuestions.length ? (
+            {quizResult === "" ? (
               <>
                 <p className="mt-2 text-gray-600">{quizQuestions[quizStep].question}</p>
                 {quizQuestions[quizStep].options.map((option) => (
@@ -146,13 +187,14 @@ export default function Bento() {
             ) : (
               <>
                 <p className="mt-2 text-gray-600">
-                  你適合的蜂蜜是：<strong className="text-amber-700">{quizAnswer}</strong>
+                  {quizResult}
                 </p>
                 <button
                   className="mt-4 w-full bg-gray-300 hover:bg-gray-400 text-gray-800 p-2 rounded-lg"
                   onClick={() => {
                     setQuizStep(0);
-                    setQuizAnswer("");
+                    setQuizAnswers([]);
+                    setQuizResult("");
                   }}
                 >
                   重新測驗

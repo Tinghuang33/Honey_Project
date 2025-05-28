@@ -19,18 +19,14 @@ interface StoryData {
 
 export default function AboutUs() {
   const [story, setStory] = useState<StoryData | null>(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchStory = async () => {
-      setLoading(true);
       try {
         const response = await axiosInstance.get("/api/self-story");
         setStory(response.data);
       } catch (error) {
         console.error("取得故事失敗", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchStory();
@@ -79,7 +75,7 @@ export default function AboutUs() {
                       </strong></p>
                       <p><strong>
                         同時，網頁平台整合檢測申請、檢測紀錄查詢、標章認證查詢、蜂農故事展示、
-                        蜂蜜科普知識等功能，提升蜂蜜產業透明度與消費者信任度。
+                        蜂蜜科普等功能，提升蜂蜜產業透明度與消費者信任度。
                       </strong></p>
                     </motion.div>
 

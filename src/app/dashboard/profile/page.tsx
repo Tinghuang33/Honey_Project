@@ -40,6 +40,15 @@ const Profile = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setMessage("");
+        if (
+            !name?.trim() ||
+            !phone ||
+            !apiray_name?.trim() ||
+            !apiray_address?.trim()
+        ) {
+            setMessage("請確保所有欄位皆填寫!");
+            return;
+        }
         const token = localStorage.getItem("token");
         try{
             const response = await axiosInstance.patch(`/change_user_info/${token}`, {

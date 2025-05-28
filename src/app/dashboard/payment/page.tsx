@@ -40,7 +40,7 @@ const Payment = () => {
 
             if (response.status === 200 && response.data && response.data.account) {
                 const date = new Date(response.data.apply_time);
-                date.setDate(date.getDate() + 7);
+                date.setDate(date.getDate() + 1);
 
                 const formattedData: PaymentDetail = {
                     ...response.data,
@@ -110,7 +110,7 @@ const Payment = () => {
                                     <p className="mt-4 text-stone-600 font-semibold"><strong>檢測公升數：</strong> {paymentDetail.capacity} L</p>
                                     <p className="mt-4 text-stone-600 font-semibold"><strong>申請日期：</strong> {new Date(paymentDetail.apply_time).toLocaleString("zh-TW")}</p>
                                     <p className="mt-4 text-stone-600 font-semibold"><strong>檢測日期：</strong> {paymentDetail.detection_time}</p>
-                                    <p className="mt-4 text-stone-600 font-semibold"><strong>繳款金額：</strong> NT$500</p>
+                                    <p className="mt-4 text-stone-600 font-semibold"><strong>繳款金額：</strong> NT$1000</p>
                                     <p className="mt-4 text-stone-600 font-semibold"><strong>付款帳號：</strong> {paymentDetail.accountNumber}</p>
                                 </div>
                             )}

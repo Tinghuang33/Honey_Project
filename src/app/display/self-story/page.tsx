@@ -68,7 +68,7 @@ export default function Self_story() {
                             <p className="mt-2 font-semibold text-amber-700">蜂農：{story.name}</p>
                             <p className="mt-2 font-semibold text-amber-700">經營蜂場：{story.apiray_name}</p>
                             <p className="mt-2 font-semibold text-amber-700">蜂場地址：{story.apiray_address}</p>
-                            <p className="mt-2 text-gray-700">血汗故事：{story.story}</p>
+                            <p className="mt-2 text-gray-700">{story.story}</p>
                           </div>
                         </SwiperSlide>
                       ))}

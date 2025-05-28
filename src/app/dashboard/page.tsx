@@ -34,7 +34,7 @@ export default function Dashboard() {
         if (account) {
             fetchProfile(account); 
         }     
-    }, []);
+    }, [account]);
     
     return (
         <AuthProvider>
@@ -82,19 +82,9 @@ export default function Dashboard() {
                                                     申請檢測
                                                     </div>
                                                 </Link>
-                                                <Link href="/dashboard/payment">
-                                                    <div className="bg-yellow-500 hover:bg-yellow-400 text-white p-4 ml-4 mr-4 shadow rounded text-center cursor-pointer">
-                                                    付款資訊
-                                                    </div>
-                                                </Link>
-                                                <Link href="/dashboard/apply-cancel">
-                                                    <div className="bg-yellow-500 hover:bg-yellow-400 text-white p-4 ml-4 mr-4 shadow rounded text-center cursor-pointer">
-                                                    申請紀錄(待檢測)
-                                                    </div>
-                                                </Link>
                                                 <Link href="/dashboard/record">
                                                     <div className="bg-yellow-500 hover:bg-yellow-400 text-white p-4 ml-4 mr-4 shadow rounded text-center cursor-pointer">
-                                                    歷史檢測紀錄&標章資訊
+                                                    申請紀錄&檢測紀錄
                                                     </div>
                                                 </Link>
                                                 <Link href="/dashboard/story">

@@ -5,6 +5,7 @@ import { useState,useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthProvider } from "@/components/AuthContext";
 import "react-datepicker/dist/react-datepicker.css";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
@@ -20,7 +21,6 @@ const Apply = () => {
         if (name === "capacity") {
             setForm({ ...form, [name]: value });
         }
-        // 其他欄位不變
     };
 
     // 日期與時段選擇
@@ -144,6 +144,7 @@ const Apply = () => {
                                                 className="w-1/2 p-2 border rounded-lg text-gray-700"
                                                 value={date}
                                                 onChange={handleDateChange}
+                                                min={new Date().toISOString().split("T")[0]} // 禁止選擇過去日期
                                             />
                                             <select
                                                 name="period"
@@ -160,6 +161,7 @@ const Apply = () => {
                                         <button className="mt-2 w-full bg-amber-600 hover:bg-amber-500 text-white p-2 rounded-lg"
                                         >送出</button>
                                         {message && <p className="text-red-600 mt-2">{message}</p>}
+                                        <Link href="/dashboard/annual_payment" className="grid place-content-center mt-6 underline text-lg text-amber-700">成為年費制會員?享受更多優惠~</Link>
                                     </form>
                                 </div>
                             </div>

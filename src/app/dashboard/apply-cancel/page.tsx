@@ -37,7 +37,7 @@ interface LabelInfo {
   };
 }
 
-const DashboardCombined = () => {
+const Record = () => {
   const router = useRouter();
   // tabs: 0 = 待檢測申請, 1 = 檢測紀錄
   const [tab, setTab] = useState(0);
@@ -208,7 +208,7 @@ const DashboardCombined = () => {
                                   >
                                     取消申請
                                   </button>
-                                  {form.pay === false && (
+                                  {!form.pay && (
                                     <button
                                       className="bg-blue-500 hover:bg-blue-400 text-white px-3 py-1 rounded ml-2"
                                       onClick={() => handlePayment(form.apply_id)}
@@ -275,4 +275,4 @@ const DashboardCombined = () => {
   );
 };
 
-export default DashboardCombined;
+export default Record;
