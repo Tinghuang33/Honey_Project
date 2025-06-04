@@ -79,7 +79,7 @@ export default function AboutUs() {
                       <h2 className="text-2xl font-semibold text-amber-700 mb-4">影片示範流程</h2>
                       <div className="aspect-video w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-lg">
                         <video
-                          src="/videos/demo.mp4"
+                          src="https://youtu.be/Yo8bqXVXiJk"
                           title="蜂蜜檢測示範影片"
                           controls
                           className="w-full h-full"
