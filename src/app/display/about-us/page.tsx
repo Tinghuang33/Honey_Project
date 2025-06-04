@@ -1,37 +1,14 @@
 "use client";
 
-import axiosInstance from "../../../utils/axiosConfig";
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaClipboardList, FaSeedling, FaMobileAlt, FaUserShield } from "react-icons/fa";
 import { AuthProvider } from "@/components/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
-import Image from "next/image";
-
-
-interface StoryData {
-  name: string;
-  business: string;
-  story: string;
-}
+// import Image from "next/image";
 
 export default function AboutUs() {
-  const [story, setStory] = useState<StoryData | null>(null);
-
-  useEffect(() => {
-    const fetchStory = async () => {
-      try {
-        const response = await axiosInstance.get("/api/self-story");
-        setStory(response.data);
-      } catch (error) {
-        console.error("取得故事失敗", error);
-      }
-    };
-    fetchStory();
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col">
       <AuthProvider>
@@ -40,13 +17,13 @@ export default function AboutUs() {
           <Sidebar />
           <main className="bg-gray-100 flex-1 p-6">
             <div className="mt-4 p-6 bg-white rounded-lg shadow relative overflow-hidden">
-              <Image
+              {/* <Image
                 src="/images/honey-bg.jpg"
                 alt="蜂蜜背景"
                 layout="fill"
                 objectFit="cover"
                 className="absolute top-0 left-0 w-full h-full opacity-10 z-0"
-              />
+              /> */}
               <div className="relative z-10">
                 <div className="bg-yellow-50 py-24 sm:py-32 relative overflow-hidden rounded-xl">
                   <motion.div
@@ -101,30 +78,14 @@ export default function AboutUs() {
                     <div className="mt-16">
                       <h2 className="text-2xl font-semibold text-amber-700 mb-4">影片示範流程</h2>
                       <div className="aspect-video w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-lg">
-                        <iframe
-                          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                        <video
+                          src="/videos/demo.mp4"
                           title="蜂蜜檢測示範影片"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
+                          controls
                           className="w-full h-full"
-                        ></iframe>
+                        ></video>
                       </div>
                     </div>
-
-                    {story && (
-                      <div className="mt-16">
-                        <h2 className="text-2xl font-semibold text-amber-700 mb-4">蜂農故事</h2>
-                        <motion.div
-                          className="p-4 border rounded-lg bg-white shadow"
-                          initial={{ opacity: 0, y: 30 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <h3 className="text-xl font-semibold text-amber-700">{story.name}</h3>
-                          <p className="mt-2 text-gray-700 whitespace-pre-line">{story.story}</p>
-                        </motion.div>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

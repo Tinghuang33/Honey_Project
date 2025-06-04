@@ -20,7 +20,7 @@ const Profile = () => {
             const response = await axiosInstance.get(`/get_user_info/${account}`, {
                 headers: { "Content-Type": "application/json" },
             });
-            console.log("讀取成功", response.data);
+            //console.log("讀取成功", response.data);
             setName(response.data.name);
             setPhone(response.data.phone);
             setApiray_name(response.data.apiray_name);
@@ -31,7 +31,7 @@ const Profile = () => {
     };
     useEffect(() => {
         const account = localStorage.getItem("account");
-            console.log("Account from localStorage:", account);
+            //console.log("Account from localStorage:", account);
             if (account) {
                 fetchProfile(account); 
             }  
@@ -60,10 +60,10 @@ const Profile = () => {
                 headers: { "Content-Type": "application/json" },
             });
             if (response.status === 200 || response.status === 201) {
-                console.log("更新成功！", response.data);
+                //console.log("更新成功！", response.data);
                 setMessage("更新成功！");
             } else {
-                console.error("更新失敗！", response.data);
+                //console.error("更新失敗！", response.data);
                 setMessage(response.data.detail || "更新失敗，請稍後再試。");
             }  
         }catch (error) {

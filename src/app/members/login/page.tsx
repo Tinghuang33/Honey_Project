@@ -26,13 +26,13 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
       });
       if (response.status === 200 || response.status === 201) {
-        console.log("登入成功！", response.data);
+        //console.log("登入成功！", response.data);
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("account", account);
 
         router.push("/"); // 導向app.tsx觸發處理
       } else {
-        console.error("登入失敗！", response.data);
+        //console.error("登入失敗！", response.data);
         setMessage(response.data?.detail || "登入失敗，請稍後再試。");
       }
     } catch (error) {

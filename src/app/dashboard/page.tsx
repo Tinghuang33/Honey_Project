@@ -21,7 +21,7 @@ export default function Dashboard() {
             const response = await axiosInstance.get(`/get_user_info/${account}`, {
                 headers: { "Content-Type": "application/json" },
             });
-            console.log("讀取成功", response.data);
+            //console.log("讀取成功", response.data);
             setName(response.data.name);
 
         } catch (error) {
@@ -30,7 +30,7 @@ export default function Dashboard() {
     };
 
     useEffect(() => {
-        console.log("Account from localStorage:", account);
+        //console.log("Account from localStorage:", account);
         if (account) {
             fetchProfile(account); 
         }     

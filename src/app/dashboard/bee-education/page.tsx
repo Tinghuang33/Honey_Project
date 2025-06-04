@@ -17,7 +17,7 @@ const BeeEducation = () => {
             const response = await axiosInstance.get(`/get_user_info/${account}`, {
                 headers: { "Content-Type": "application/json" },
             });
-            console.log("讀取成功", response.data);
+            //console.log("讀取成功", response.data);
             setEducation(response.data.bee_education);
 
         } catch (error) {
@@ -26,7 +26,7 @@ const BeeEducation = () => {
     };
     useEffect(() => {
         const account = localStorage.getItem("account");
-            console.log("Account from localStorage:", account);
+            //console.log("Account from localStorage:", account);
             if (account) {
                 fetchEducation(account); 
             }
@@ -46,7 +46,7 @@ const BeeEducation = () => {
                 headers: { "Content-Type": "application/json" },
             });
             if(response.status === 200 || response.status === 201) {
-                console.log("提交成功！", response.data);
+                //console.log("提交成功！", response.data);
                 setEducation("");
                 setMessage("提交成功！感謝您的分享。");
                 

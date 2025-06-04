@@ -11,6 +11,7 @@ export default function Bento() {
   const [quizResult, setQuizResult] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [hasToken, setHasToken] = useState(false);
 
   // 更有趣的小測驗題目
   const quizQuestions = [
@@ -60,6 +61,13 @@ export default function Bento() {
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      setHasToken(!!token);
+    }
   }, []);
 
   const knowledgeCards = [
@@ -151,13 +159,13 @@ export default function Bento() {
           {/* 蜂農故事 */}
           <div className="relative bg-white shadow-lg rounded-xl border border-gray-300 p-6">
             <h3 className="text-xl font-semibold text-amber-700 mb-4">蜂農故事</h3>
-            <Link href="/beekeeper-story/1" className="block mb-4">
+            <Link href="/display/self-story" className="block mb-4">
               <div className="cursor-pointer bg-gray-100 p-4 rounded-lg w-full">
                 <h4 className="text-lg font-medium text-amber-700">阿德的養蜂日常</h4>
                 <p className="mt-2 text-gray-600">來自台南的小農阿德，世代確保純真蜂蜜。</p>
               </div>
             </Link>
-            <Link href="/beekeeper-story/2" className="block">
+            <Link href="/display/self-story" className="block">
               <div className="cursor-pointer bg-gray-100 p-4 rounded-lg w-full">
                 <h4 className="text-lg font-medium text-amber-700">小芳的山林蜂園</h4>
                 <p className="mt-2 text-gray-600">小芳在南投山區與蜜蜂共舞，堅持自然養殖，守護生態。</p>
@@ -206,7 +214,10 @@ export default function Bento() {
 
         {/* 檢測申請 */}
         <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-          <Link href="/members/login" className="bg-green-600 hover:bg-green-700 transition-all text-white px-6 py-3 rounded-lg text-lg font-semibold">
+          <Link
+            href={hasToken ? "/dashboard/apply" : "/members/login"}
+            className="bg-green-600 hover:bg-green-700 transition-all text-white px-6 py-3 rounded-lg text-lg font-semibold"
+          >
             申請蜂蜜檢測
           </Link>
         </div>

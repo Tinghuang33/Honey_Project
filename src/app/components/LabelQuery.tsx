@@ -60,7 +60,7 @@ const LabelQuery = () => {
           detection_time: formatTime(response.data.detection_time),
         };
         setLabelData(data);
-        console.log("✅ Processed Data:", data);
+        //console.log("✅ Processed Data:", data);
       } else {
         setMessage("查無此標章資料");
       }

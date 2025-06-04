@@ -88,7 +88,7 @@ const Record = () => {
       } else {
         setAnnual(null);
       }
-      console.log("取得申請紀錄成功！", data);
+      //console.log("取得申請紀錄成功！", data);
     } catch (error) {
       console.error("取得申請紀錄失敗", error);
       setApplyMessage("取得申請紀錄失敗，請稍後再試。");

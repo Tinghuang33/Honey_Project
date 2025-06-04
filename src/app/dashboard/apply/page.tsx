@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthProvider } from "@/components/AuthContext";
 import "react-datepicker/dist/react-datepicker.css";
-import Link from "next/link";
+// import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
@@ -45,7 +45,7 @@ const Apply = () => {
                 apiray_name: response.data.apiray_name,
                 apiray_address: response.data.apiray_address,
             });
-            console.log("讀取成功", response.data);
+            //console.log("讀取成功", response.data);
 
         } catch (error) {
             console.error("連線錯誤，請確認伺服器狀態！", error);
@@ -53,10 +53,11 @@ const Apply = () => {
     };
     useEffect(() => {
         const account = localStorage.getItem("account");
-            console.log("Account from localStorage:", account);
-            if (account) {
-                fetchProfile(account); 
-            }
+        //console.log("Account from localStorage:", account);
+        if (account) {
+            fetchProfile(account); 
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -81,7 +82,7 @@ const Apply = () => {
                 headers: { "Content-Type": "application/json" },
             });
             if (response.status === 200 || response.status === 201) {
-                console.log("申請成功！", response.data);
+                //console.log("申請成功！", response.data);
                 setMessage("申請成功！可查詢申請紀錄。");
                 setForm({
                     ...form,
@@ -161,7 +162,7 @@ const Apply = () => {
                                         <button className="mt-2 w-full bg-amber-600 hover:bg-amber-500 text-white p-2 rounded-lg"
                                         >送出</button>
                                         {message && <p className="text-red-600 mt-2">{message}</p>}
-                                        <Link href="/dashboard/annual_payment" className="grid place-content-center mt-6 underline text-lg text-amber-700">成為年費制會員?享受更多優惠~</Link>
+                                        {/* <Link href="/dashboard/annual_payment" className="grid place-content-center mt-6 underline text-lg text-amber-700">成為年費制會員?享受更多優惠~</Link> */}
                                     </form>
                                 </div>
                             </div>

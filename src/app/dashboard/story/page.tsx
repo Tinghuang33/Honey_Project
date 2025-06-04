@@ -17,7 +17,7 @@ const Story = () => {
             const response = await axiosInstance.get(`/get_user_info/${account}`, {
                 headers: { "Content-Type": "application/json" },
             });
-            console.log("讀取成功", response.data);
+            //console.log("讀取成功", response.data);
             setStory(response.data.story);
 
         } catch (error) {
@@ -39,7 +39,7 @@ const Story = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
-        console.log("Token from localStorage:", token);
+        //console.log("Token from localStorage:", token);
         try {
             const response = await axiosInstance.post(`/submit_story/${token}`, {
                 story
@@ -47,7 +47,7 @@ const Story = () => {
                 headers: { "Content-Type": "application/json" },
             });
             if(response.status === 200 || response.status === 201) {
-                console.log("提交成功！", response.data);
+                //console.log("提交成功！", response.data);
                 setStory("");
                 setMessage("提交成功！感謝您的分享。");
                 
