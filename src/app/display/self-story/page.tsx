@@ -26,7 +26,6 @@ export default function Self_story() {
       setLoading(true);
       try {
         const response = await axiosInstance.get("/get_all_story");
-        //console.log("取得故事成功", response.data);
         setStories(response.data);
       } catch (error) {
         console.error("取得故事失敗", error);

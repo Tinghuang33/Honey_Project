@@ -190,10 +190,10 @@ const Record = () => {
                 ></motion.div>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
                   <h1 className="text-4xl font-bold text-amber-700 sm:text-5xl">
-                    蜂蜜品質檢測平台
+                    歷史申請紀錄/檢測紀錄
                   </h1>
                   <p className="mt-4 text-lg text-gray-700">
-                    讓消費者買得安心，讓蜂農賣得放心
+                    查看歷史檢測申請與標章紀錄
                   </p>
                   {/* 年費制會員顯示區塊 */}
                   <div className="mb-4">

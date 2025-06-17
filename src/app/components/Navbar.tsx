@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ mode = "user" }) => {
           蜂蜜檢測系統
         </Link>
         <div className="flex items-center gap-4">
-          {isAdmin && (
+          {/* {isAdmin && (
             <div className="flex gap-4">
               <Link
                 href="/inspector/review_story"
@@ -34,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ mode = "user" }) => {
                 蜂蜜知識審查
               </Link>
             </div>
-          )}
+          )} */}
           {isAuthenticated ? (
             <button
               onClick={logout}
